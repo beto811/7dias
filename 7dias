@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Escolhas de Programação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bem-vindo ao Jogo de Escolhas de Programação!</h1>
+
+    <div id="areaChoice">
+        <p>Você gostaria de seguir para a área de Front-End ou Back-End?</p>
+        <button class="button" onclick="chooseArea('frontEnd')">Front-End</button>
+        <button class="button" onclick="chooseArea('backEnd')">Back-End</button>
+    </div>
+
+    <div id="frontEndChoice" class="hidden">
+        <p>Você escolheu a área de Front-End. Agora, você gostaria de aprender React ou Vue?</p>
+        <button class="button" onclick="chooseTechnology('react')">Aprender React</button>
+        <button class="button" onclick="chooseTechnology('vue')">Aprender Vue</button>
+    </div>
+
+    <div id="backEndChoice" class="hidden">
+        <p>Você escolheu a área de Back-End. Agora, você gostaria de aprender C# ou Java?</p>
+        <button class="button" onclick="chooseTechnology('csharp')">Aprender C#</button>
+        <button class="button" onclick="chooseTechnology('java')">Aprender Java</button>
+    </div>
+
+    <div id="specializationChoice" class="hidden">
+        <p>Agora, você quer se especializar ainda mais na área que escolheu ou quer se desenvolver para se tornar Fullstack?</p>
+        <button class="button" onclick="chooseSpecialization('specialize')">Especializar-se na área</button>
+        <button class="button" onclick="chooseSpecialization('fullstack')">Seguir para Fullstack</button>
+    </div>
+
+    <div id="technologyChoice" class="hidden">
+        <p>Agora, vamos ver quais tecnologias você gostaria de aprender ou se especializar.</p>
+        <input type="text" id="technologyInput" placeholder="Digite o nome de uma tecnologia" />
+        <button class="button" onclick="addTechnology()">Adicionar Tecnologia</button>
+        <button class="button" onclick="finishTechnologies()">Terminar</button>
+    </div>
+
+    <div id="technologyList" class="hidden">
+        <h2>Tecnologias escolhidas:</h2>
+        <ul id="technologies"></ul>
+    </div>
+
+    <div id="finalMessage" class="hidden">
+        <p>Obrigado por jogar! Com todas essas escolhas, você está no caminho certo para se tornar um grande programador. Boa sorte no seu aprendizado e desenvolvimento!</p>
+    </div>
+
+    <script>
+        let selectedArea = '';
+        let selectedTechnologies = [];
+
+        function chooseArea(area) {
+            selectedArea = area;
+            document.getElementById("areaChoice").classList.add("hidden");
+
+            if (area === 'frontEnd') {
+                document.getElementById("frontEndChoice").classList.remove("hidden");
+            } else if (area === 'backEnd') {
+                document.getElementById("backEndChoice").classList.remove("hidden");
+            }
+        }
+
+        function chooseTechnology(technology) {
+            if (selectedArea === 'frontEnd') {
+                alert(`Você escolheu aprender ${technology === 'react' ? 'React' : 'Vue'}.`);
+            } else if (selectedArea === 'backEnd') {
+                alert(`Você escolheu aprender ${technology === 'csharp' ? 'C#' : 'Java'}.`);
+            }
+
+            document.getElementById("frontEndChoice").classList.add("hidden");
+            document.getElementById("backEndChoice").classList.add("hidden");
+
+            document.getElementById("specializationChoice").classList.remove("hidden");
+        }
+
+        function chooseSpecialization(choice) {
+            if (choice === 'specialize') {
+                alert(`Você escolheu se especializar na área de ${selectedArea === 'frontEnd' ? 'Front-End' : 'Back-End'}.`);
+            } else {
+                alert(`Você escolheu se tornar Fullstack.`);
+            }
+
+            document.getElementById("specializationChoice").classList.add("hidden");
+            document.getElementById("technologyChoice").classList.remove("hidden");
+        }
+
+        function addTechnology() {
+            const technology = document.getElementById("technologyInput").value.trim();
+            if (technology) {
+                selectedTechnologies.push(technology);
+                document.getElementById("technologyInput").value = '';  // Clear input
+
+                const technologyItem = document.createElement('li');
+                technologyItem.textContent = technology;
+                document.getElementById("technologies").appendChild(technologyItem);
+
+                alert(`${technology} é uma tecnologia interessante. Continue explorando!`);
+            }
+        }
+
+        function finishTechnologies() {
+            if (selectedTechnologies.length === 0) {
+                alert("Você não escolheu nenhuma tecnologia.");
+                return;
+            }
+
+            document.getElementById("technologyChoice").classList.add("hidde
