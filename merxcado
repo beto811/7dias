@@ -1,0 +1,49 @@
+// Lista para armazenar as compras
+let listaDeCompras = [];
+
+// Função para adicionar comida à lista
+function adicionarComida() {
+    // Pergunta se o usuário deseja adicionar uma comida
+    let resposta = prompt("Você deseja adicionar uma comida na sua lista de compras? (sim/não)");
+
+    // Se a resposta for 'sim', continua o processo
+    if (resposta.toLowerCase() === "sim") {
+        // Pergunta o nome da comida
+        let comida = prompt("Qual comida você deseja adicionar?");
+        
+        // Pergunta a categoria da comida
+        let categorias = ["frutas", "laticínios", "congelados", "doces", "outros"];
+        let categoria = prompt(`Em qual categoria essa comida se encaixa? Escolha entre: ${categorias.join(", ")}`);
+
+        // Verifica se a categoria informada é válida
+        if (!categorias.includes(categoria.toLowerCase())) {
+            alert("Categoria inválida. A comida será colocada na categoria 'outros'.");
+            categoria = "outros";
+        }
+
+        // Adiciona a comida e a categoria na lista
+        listaDeCompras.push({ comida: comida, categoria: categoria });
+
+        // Exibe a comida e a categoria adicionada
+        alert(`Comida '${comida}' adicionada na categoria '${categoria}'.`);
+    } else {
+        alert("Você escolheu não adicionar comida à lista.");
+    }
+
+    // Pergunta se o usuário deseja adicionar mais alimentos
+    let continuar = prompt("Deseja adicionar outra comida? (sim/não)");
+    if (continuar.toLowerCase() === "sim") {
+        adicionarComida();  // Chama a função novamente para continuar o processo
+    } else {
+        // Exibe a lista final de compras
+        alert("Sua lista de compras final é:");
+
+        // Exibe todos os itens da lista
+        listaDeCompras.forEach(item => {
+            alert(`Comida: ${item.comida}, Categoria: ${item.categoria}`);
+        });
+    }
+}
+
+// Inicia o processo de adicionar comida
+adicionarComida();
